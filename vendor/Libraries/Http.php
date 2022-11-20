@@ -22,9 +22,9 @@ class Http
         header("Access-Control-Allow-Methods: POST");
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
         http_response_code(200);
-        return json_encode($_SERVER, JSON_PRETTY_PRINT);
-        return $_SERVER;
-        return json_decode(file_get_contents('php://input'), true);
+        return json_encode($_POST, JSON_PRETTY_PRINT);
+//        return $_SERVER;
+        return Api::json(json_decode(file_get_contents('php://input'), true));
 
         $entityBody = stream_get_contents(STDIN);
         return json_encode($entityBody, JSON_PRETTY_PRINT);

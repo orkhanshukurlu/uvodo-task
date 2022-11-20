@@ -1,9 +1,10 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    require_once "index.php";
+    require_once "$class.php";
 });
 
-use vendor\Libraries\Http;
+require_once 'config/route.php';
 
-echo Http::post();
+//use vendor\Libraries\Http;
+//echo Http::post();
