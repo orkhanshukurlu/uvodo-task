@@ -32,4 +32,9 @@ class Http
         parse_str(file_get_contents('php://input'), $a);
         return json_encode($a, JSON_PRETTY_PRINT);
     }
+
+    private function setResponseCode(int $status = 200): void
+    {
+        http_response_code($status);
+    }
 }

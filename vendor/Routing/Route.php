@@ -2,6 +2,7 @@
 
 namespace vendor\Routing;
 
+use src\Repositories\UserRepository;
 use vendor\Exceptions\MethodNotAllowed;
 
 class Route

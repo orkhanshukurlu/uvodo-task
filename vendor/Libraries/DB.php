@@ -6,7 +6,7 @@ use PDO;
 
 class DB
 {
-    public $conn;
+    private ?PDO $conn;
 
     public function __construct()
     {
@@ -25,18 +25,20 @@ class DB
         }
     }
 
-    public function get()
+    public function all(): false|array
     {
-        $query = $this->conn->prepare("select id, email, name from users");
+        $query = $this->conn->prepare('select * from users');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function create()
+    public function insert($name, $email): false|string
     {
-        $query = $this->conn->prepare("select id, email, name from users");
+        $query = $this->conn->prepare('insert into users (name, email) values (:name, :email)');
+        $query->bindParam(':name', $name);
+        $query->bindParam(':email',$email);
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        return $this->conn->lastInsertId();
     }
 
     public function __destruct()

@@ -1,9 +1,12 @@
 <?php
 
+namespace src\Contracts;
+
+use src\Models\UserModel;
+
 interface IUserRepository
 {
-    public function add(User $user);
-    public function findByUsername($username): User;
-    public function update(User $user);
-    public function remove(User $user);
+    public function createUser(UserModel $user): string|false;
+
+    public function getAllUsers(): array|false;
 }

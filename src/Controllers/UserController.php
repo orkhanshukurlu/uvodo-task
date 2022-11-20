@@ -2,23 +2,24 @@
 
 namespace src\Controllers;
 
+use src\Models\UserModel;
+use src\Repositories\UserRepository;
+use vendor\Libraries\Request;
+
 class UserController
 {
-    private $users;
-
-    public function __construct(IUserRepository $users)
+    public function __construct(public UserRepository $userRepository)
     {
-        $this->users = $users;
     }
 
-    public function addUser($params)
+    public function index()
     {
-        $user = new User($params['username'], $params['password']);
-        $this->users->add($user);
+        return $this->userRepository->getAllUsers();
     }
 
-    public function getUser($params): User
+    public function create(Request $request)
     {
-        return $this->users->findByUsername($params['username']);
+        $user = new UserModel($request->field('name'), $request->field('email'));
+        return $this->userRepository->createUser($user);
     }
 }

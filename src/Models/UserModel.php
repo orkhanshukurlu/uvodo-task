@@ -1,5 +1,7 @@
 <?php
 
+namespace src\Models;
+
 class UserModel
 {
     private string $name;
@@ -8,7 +10,7 @@ class UserModel
     public function __construct(string $name, string $email)
     {
         $this->setName($name);
-        $this->getEmail($email);
+        $this->setEmail($email);
     }
 
     public function setName(string $name): void
