@@ -8,8 +8,12 @@ use vendor\Libraries\DB;
 
 class UserRepository implements IUserRepository
 {
-    public function __construct(private DB $db)
-    {}
+    private DB $db;
+
+    public function __construct()
+    {
+        $this->db = DB::table('users');
+    }
 
     public function createUser(UserModel $user): string|false
     {

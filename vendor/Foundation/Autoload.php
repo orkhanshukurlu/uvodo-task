@@ -1,25 +1,23 @@
 <?php
 
-namespace vendor\Foundation;
-
 class Autoload
 {
-    private string $configPattern = 'config/*.php';
+    private static string $configPattern = 'config/*.php';
 
-    public function __construct()
+    public static function loader(): void
     {
-        $this->loadConfig();
-        $this->loadClass();
+        self::loadClass();
+        self::loadConfig();
     }
 
-    private function loadConfig(): void
+    private static function loadConfig(): void
     {
-        foreach (glob($this->configPattern) as $file) {
-            require_once __DIR__ . '/../' . $file;
+        foreach (glob(self::$configPattern) as $file) {
+            require_once __DIR__ . '/../../' . $file;
         }
     }
 
-    private function loadClass(): void
+    private static function loadClass(): void
     {
         spl_autoload_register(function ($class) {
             require_once "$class.php";

@@ -1,10 +1,6 @@
 <?php
 
-const connection = 'mysql';
-
-const mysql = [
-    'host'     => '',
-    'database' => '',
-    'username' => '',
-    'password' => ''
-];
+const HOST     = 'localhost';
+const DATABASE = 'uvodo';
+const USERNAME = 'root';
+const PASSWORD = '';

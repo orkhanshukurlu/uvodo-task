@@ -7,16 +7,12 @@ use PDO;
 class DB
 {
     private ?PDO $conn;
+    private static string $table;
 
     public function __construct()
     {
-        $servername = 'localhost';
-        $username   = 'root';
-        $password   = '';
-        $database   = 'uvodo';
-
         try {
-            $this->conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+            $this->conn = new PDO('mysql:host=' . HOST . ';dbname=' . DATABASE, USERNAME, PASSWORD);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
 
@@ -25,16 +21,22 @@ class DB
         }
     }
 
+    public static function table(string $table): static
+    {
+        self::$table = $table;
+        return new static;
+    }
+
     public function all(): false|array
     {
-        $query = $this->conn->prepare('select * from users');
+        $query = $this->conn->prepare('select * from ' . self::$table);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function insert($name, $email): false|string
     {
-        $query = $this->conn->prepare('insert into users (name, email) values (:name, :email)');
+        $query = $this->conn->prepare('insert into ' . self::$table . ' (name, email) values (:name, :email)');
         $query->bindParam(':name', $name);
         $query->bindParam(':email',$email);
         $query->execute();
