@@ -5,6 +5,7 @@ namespace src\Controllers;
 use src\Models\UserModel;
 use src\Repositories\UserRepository;
 use vendor\Libraries\Request;
+use vendor\Libraries\Response;
 
 class UserController
 {
@@ -12,14 +13,15 @@ class UserController
     {
     }
 
-    public function index()
+    public static function index()
     {
-        return $this->userRepository->getAllUsers();
+        $data = (new UserRepository())->getAllUsers();
+        return Response::json($data);
     }
 
-    public function create(Request $request)
+    public static function create(Request $request)
     {
         $user = new UserModel($request->field('name'), $request->field('email'));
-        return $this->userRepository->createUser($user);
+        return Response::json((new UserRepository())->createUser($user));
     }
 }
