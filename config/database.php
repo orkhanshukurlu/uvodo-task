@@ -1,6 +1,19 @@
 <?php
 
-const HOST     = 'localhost';
-const DATABASE = 'uvodo';
-const USERNAME = 'root';
-const PASSWORD = '';
+const connection = 'pgsql';
+
+const mysql = [
+    'host'     => 'localhost',
+    'port'     => '3306',
+    'database' => 'uvodo',
+    'username' => 'root',
+    'password' => ''
+];
+
+const pgsql = [
+    'host'     => 'localhost',
+    'port'     => '5432',
+    'database' => 'uvodo',
+    'username' => 'postgres',
+    'password' => 'trust'
+];

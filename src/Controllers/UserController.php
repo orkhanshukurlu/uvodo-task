@@ -13,22 +13,24 @@ class UserController
     {
     }
 
-    public function index()
+    public function index(): false|string
     {
+        $data = $this->userRepository->getAllUsers();
+
         return Response::json([
             'success' => true,
-            'data'    => $this->userRepository->getAllUsers()
+            'data'    => $data
         ]);
     }
 
-    public function create()
+    public function create(): false|string
     {
-        $request = new Request();
-        $user = new UserModel($request->field('name'), $request->field('email'));
+        $user = new UserModel(Request::field('name'), Request::field('email'));
+        $data = $this->userRepository->createUser($user);
 
         return Response::json([
             'success' => true,
-            'data'    => $this->userRepository->createUser($user)
+            'data'    => $data
         ]);
     }
 }

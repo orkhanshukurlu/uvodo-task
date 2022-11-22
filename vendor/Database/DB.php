@@ -1,6 +1,6 @@
 <?php
 
-namespace vendor\Libraries;
+namespace vendor\Database;
 
 use PDO;
 
@@ -8,12 +8,18 @@ class DB
 {
     private ?PDO $conn;
     private static string $table;
+    private Mysql|Postgresql $driver;
 
     public function __construct()
     {
         try {
-            $this->conn = new PDO('mysql:host=' . HOST . ';dbname=' . DATABASE, USERNAME, PASSWORD);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->driver = match (connection) {
+                'mysql' => new Mysql,
+                'pgsql' => new Postgresql,
+                default => throw new \Exception('Database connection does not match')
+            };
+
+            $this->conn = $this->driver->connect();
         }
 
         catch (\PDOException $e) {

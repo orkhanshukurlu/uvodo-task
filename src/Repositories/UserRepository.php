@@ -4,7 +4,7 @@ namespace src\Repositories;
 
 use src\Contracts\IUserRepository;
 use src\Models\UserModel;
-use vendor\Libraries\DB;
+use vendor\Database\DB;
 
 class UserRepository implements IUserRepository
 {
